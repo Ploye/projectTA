@@ -60,7 +60,11 @@ class AbsenController extends Controller
             ->where('id_pegawai', $idpegawai)
             ->first();
 
-        $gaji = '125000';
+        $gaji = DB::table('pegawai')
+            ->select('gaji')
+            ->where('id_pegawai', $idpegawai)
+            ->first()->gaji;
+
         $absen = (!empty($checkAbsensi) ? $checkAbsensi->jml_hadir : 0);
         $total_absen =  $absen;
         $gaji_di_termia = ($absen > 0 ? $gaji * $total_absen : 0);
